@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <title>Hello World</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+    <script src="js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/knockout-2.2.1.debug.js"></script>
+    <script src="cordova.js"></script>
+    <style type="text/css">
+        img.center { display: block; margin-left: auto; margin-right: auto; }
+    </style>
+    <script>
+        $(document).bind('mobileinit', function () {
+            console.log('mobileinit');
+
+            window.onerror = function (errmsg, filename, ln) {
+                window.external.notify("jserror : " + errmsg +
+                        ", in file : " + filename +
+                        ", at line number:" + ln);
+            }
+
+            $.mobile.buttonMarkup.hoverDelay = 0;
+            //$.mobile.transitionFallbacks.slideout = "none";
+            //$.mobile.defaultDialogTransition = "none";
+            //$.mobile.defaultPageTransition = "none";
+            //$.mobile.transitionFallbacks = "none";
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true;
+            //$.mobile.phonegapNavigationEnabled = true;
+            $.mobile.page.prototype.options.domCache = false;
+            $.mobile.orientationChangeEnabled = false;
+        });
+    </script>
+    <script src="js/jquery.mobile-1.3.1.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+
+    <div id="home" data-role="page">
+        <div data-role="header" data-id="nav01" data-position="fixed">
+            <div data-role="navbar" data-iconpos="left">
+                <ul>
+                    <li><a href="#home" class="ui-btn-active ui-state-persist" data-icon="home">Home</a></li>
+                    <li><a href="#picture" data-rel="dialog" data-icon="add">Picture</a></li>
+                    <li><a href="#setup" data-icon="gear">Setup</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <a href="#" data-role="button">sync</a>
+            <ul data-role="listview" data-inset="true">
+                <li data-icon="check"><a href="#">Entry #1</a></li>
+                <li data-icon="delete"><a href="#">Entry #2</a></li>
+            </ul>
+            <ul id="entries" data-role="listview" data-inset="true" data-bind="foreach: items">
+                <li data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="    text: name"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="picture" data-role="page" data-close-btn="none">
+        <div data-role="header">
+            <h1>Picture</h1>
+        </div>
+        <div data-role="content">
+            <a href="#" id='picture-takepicture' data-bind="orientation: UpdateWidth, click: TakePicture" data-role="button" >Take a Picture</a>
+        </div>
+        <div data-role="footer">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#home" data-role="button" data-theme="c">Cancel</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#compass" data-role="button" data-theme="b" data-rel="dialog">Next</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div id="compass" data-role="page" data-close-btn="none">
+        <div data-role="header">
+            <h1>Compass</h1>
+        </div>
+        <div data-role="content">
+            <label class="ui-hidden-accessible" for="compass-manual" class="select">Choose the orientation</label>
+            <select name="compass-manual" id="compass-manual" data-bind="selectedOptions: CompassWrapper.trueHeading, selectmenuenable: CompassWrapper.useManual">
+                <option value="0">North (N)</option>
+                <option value="45">Northeast (NE)</option>
+                <option value="90">East (E)</option>
+                <option value="135">Southeast (SE)</option>
+                <option value="180">South (S)</option>
+                <option value="225">Southwest (SW)</option>
+                <option value="270">West (W)</option>
+                <option value="315">Northwest (NW)</option>
+            </select>
+            <!-- ko if: IsEnabled -->
+            <!-- ko ifnot: hasError -->
+            <p>True Heading: <span data-bind="text: CompassWrapper.trueHeading"></span></p>
+            <p>Orientation: <span data-bind="text: CompassWrapper.orientation"></span></p>
+            <p>Magnetic Heading: <span data-bind="text: CompassWrapper.magneticHeading"></span></p>
+            <p>Accuracy: <span data-bind="text: CompassWrapper.headingAccuracy"></span></p>
+            <p>Timestamp: <span data-bind="text: CompassWrapper.timestamp"></span></p>
+            <!-- /ko -->
+            <!-- ko if: hasError -->
+            <p data-bind="text: errorMessage"></p>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div data-role="footer">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#" data-role="button" data-rel="back" data-theme="c">Back</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#gps" data-role="button" data-theme="b" data-rel="dialog">Next</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div id="gps" data-role="page" data-close-btn="none">
+        <div data-role="header">
+            <h1>GPS</h1>
+        </div>
+        <div data-role="content">
+            <!-- ko ifnot:hasError -->
+            <p>Latitude: <span data-bind="text: Latitude"></span></p>
+            <p>Longitude: <span data-bind="text: Longitude"></span></p>
+            <p>Accuracy: <span data-bind="text: Accuracy"></span></p>
+            <p>Altitude: <span data-bind="text: Altitude"></span></p>
+            <p>Altitude Accuracy: <span data-bind="text: AltitudeAccuracy"></span></p>
+            <p>Timestamp: <span data-bind="text: Timestamp"></span></p>
+            <!-- /ko -->
+            <!-- ko if:hasError -->
+            <p data-bind="text: errorMessage"></p>
+            <!-- /ko -->
+        </div>
+        <div data-role="footer">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#" data-role="button" data-rel="back" data-theme="c">Back</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#result" data-role="button" data-theme="b" data-rel="dialog">Next</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div id="result" data-role="page" data-close-btn="none">
+        <div data-role="header">
+            <h1>Save Entry</h1>
+        </div>
+        <div data-role="content">
+            <p>Would you like to save the new entry?</p>
+        </div>
+        <div data-role="footer">
+            <fieldset class="ui-grid-b">
+                <div class="ui-block-a">
+                    <a href="#" data-role="button" data-rel="back" data-theme="c">Back</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#home" data-role="button" data-theme="a">Cancel</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" data-role="button" data-theme="b">Save</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div id="setup" data-role="page">
+        <div data-role="header" data-id="nav01" data-position="fixed">
+            <div data-role="navbar" data-iconpos="left">
+                <ul>
+                    <li><a href="#home" data-icon="home">Home</a></li>
+                    <li><a href="#picture" data-rel="dialog" data-icon="add">Picture</a></li>
+                    <li><a href="#setup" class="ui-btn-active ui-state-persist" data-icon="gear">Setup</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <form>
+                <fieldset data-role="collapsible">
+                    <legend>GPS Options</legend>
+                    <label for="gps-highaccuracy">Enable High Accuracy:</label>
+                    <select name="gps-highaccuracy" id="gps-highaccuracy" data-role="slider" data-mini="true" data-bind="flipswitch: GPSOptions.accuracy">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                    <label for="gps-maximum-age">Maximum Cached Age (ms):</label>
+                    <input type="range" name="gps-maximum-age" id="gps-maximum-age" data-bind="slider: GPSOptions.maximumAge" value="300" min="400" max="5000" step="100" data-mini="true" data-highlight="true" data-theme="b" data-track-theme="d" />
+                    <label for="gps-timeout">Timeout (ms):</label>
+                    <input type="range" name="gps-timeout" id="gps-timeout" value="5000" data-bind="slider: GPSOptions.timeout" min="1000" max="60000" data-mini="true" step="1000" data-highlight="true" data-theme="b" data-track-theme="d" />
+                </fieldset>
+                <fieldset data-role="collapsible">
+                    <legend>Compass Options</legend>
+                    <label for="compass-auto">Enable Compass:</label>
+                    <select name="compass-auto" id="compass-auto" data-role="slider" data-mini="true" data-bind="flipswitch: CompassOptions.enabled">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
+                    <label for="compass-frequency">Frequency (ms):</label>
+                    <input type="range" name="compass-frequency" id="compass-frequency" data-bind="slider: CompassOptions.frequency" value="0" min="300" max="2000" step="50" data-mini="true" data-highlight="true" data-theme="b" data-track-theme="d" />
+                </fieldset>
+                <fieldset data-role="collapsible">
+                    <legend>Picture Options</legend>
+                    <label for="picture-quality">Quality:</label>
+                    <input type="range" name="picture-quality" id="picture-quality" data-bind="slider: PictureOptions.quality" value="75" min="0" max="100" step="5" data-mini="true" data-highlight="true" data-theme="b" data-track-theme="d" />
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

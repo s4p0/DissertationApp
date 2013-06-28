@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is auto-generated, do not edit! -jm -->
+<CordovaSourceDictionary>
+    <FilePath Value="www\img\compassrose.png"/>
+    <FilePath Value="www\img\compassrose.svg"/>
+    <FilePath Value="www\index.html"/>
+    <FilePath Value="www\js\app.js"/>
+    <FilePath Value="www\js\index.js"/>
+    <FilePath Value="www\js\jquery-1.9.1-vsdoc.js"/>
+    <FilePath Value="www\js\jquery-1.9.1.intellisense.js"/>
+    <FilePath Value="www\js\jquery-1.9.1.js"/>
+    <FilePath Value="www\js\jquery-1.9.1.min.js"/>
+    <FilePath Value="www\js\jquery.mobile-1.3.1.js"/>
+    <FilePath Value="www\js\jquery.mobile-1.3.1.min.js"/>
+    <FilePath Value="www\js\knockout-2.2.1.debug.js"/>
+    <FilePath Value="www\js\knockout-2.2.1.js"/>
+    <FilePath Value="www\cordova.js"/>
+    <FilePath Value="www\cordova.js"/>
+    <FilePath Value="www\css\images\icons-18-black.png"/>
+    <FilePath Value="www\css\images\icons-18-white.png"/>
+    <FilePath Value="www\css\images\icons-36-black.png"/>
+    <FilePath Value="www\css\images\icons-36-white.png"/>
+    <FilePath Value="www\css\index.css"/>
+    <FilePath Value="www\css\index.css"/>
+    <FilePath Value="www\css\jquery.mobile-1.3.1.min.css"/>
+    <FilePath Value="www\css\jquery.mobile.structure-1.3.1.min.css"/>
+    <FilePath Value="www\css\jquery.mobile.theme-1.3.1.min.css"/>
+    <FilePath Value="www\img\logo.png"/>
+    <FilePath Value="www\img\logo.png"/>
+    <FilePath Value="www\index.html"/>
+    <FilePath Value="www\oldindex.html"/>
+    <FilePath Value="www\js\oldapp.js"/>
+    <FilePath Value="www\js\index.js"/>
+</CordovaSourceDictionary>

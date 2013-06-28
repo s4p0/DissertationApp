@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <title>Hello World</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/knockout-2.2.1.debug.js"></script>
+    <script src="cordova.js"></script>
+    <script>
+        $(document).bind('mobileinit', function () {
+            console.log('mobileinit');
+
+            $.mobile.buttonMarkup.hoverDelay = 0;
+            $.mobile.transitionFallbacks.slideout = "none";
+            $.mobile.defaultDialogTransition = "none";
+            $.mobile.defaultPageTransition = "none";
+            $.mobile.transitionFallbacks = "none";
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true;
+            $.mobile.phonegapNavigationEnabled = true;
+            $.mobile.page.prototype.options.domCache = false;
+        });
+    </script>
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+    <!--INDEX-->
+    <div id="index" data-role="page" data-theme="a">
+        <div data-role="header" data-id="index" data-position="fixed">
+            <p style="text-align: center;">ForestWatchers.net</p>
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a href="#index" class="ui-btn-active ui-state-persist" data-icon="home">Home</a></li>
+                    <li><a href="#camera" data-icon="bars">Camera</a></li>
+                    <li><a href="#setup" data-rel="dialog" data-icon="gear">Setup</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <a href="#" data-role="button">sync</a>
+            <ul id="entries" data-role="listview" data-inset="true">
+                <li data-icon="check"><a href="#">Entry #1</a></li>
+                <li data-icon="delete"><a href="#">Entry #2</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--CAMERA-->
+    <div id="camera" data-role="page" data-theme="a" data-bind="event: { pageshow: start, pagehide: stop }">
+        <div data-role="header" data-id="camera" data-position="fixed">
+            <p style="text-align: center;">ForestWatchers.net</p>
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a href="#index" data-icon="home">Home</a></li>
+                    <li><a href="#camera" class="ui-btn-active ui-state-persist" data-icon="bars">Camera</a></li>
+                    <li><a href="#setup" data-rel="dialog" data-icon="gear">Setup</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <a href="#" data-role="button" data-icon="delete">Picture</a>
+            <a href="#gps" data-role="button" data-rel="popup" data-icon="delete">GPS info</a>
+            <a href="#compass" data-role="button" data-rel="popup" data-icon="delete">Compass info</a>
+            <a href="#manual" data-role="button" data-rel="popup" data-icon="delete">Manual info</a>
+
+            <!--COMPASS AUTO-->
+            <div id="compass" data-role="popup" data-overlay-theme="a" >
+                <div data-role="header">
+                    <p style="text-align: center;">Compass Data</p>
+                </div>
+                <div data-role="container" data-bind="with: compass.mvvm">
+                    <!-- ko ifnot: error -->
+                    <p>Orientation: <span data-bind="text: Orientation"></span></p>
+                    <p>Magnetic Heading: <span data-bind="text: MagneticHeading"></span></p>
+                    <p>True Heading: <span data-bind="text: TrueHeading"></span></p>
+                    <p>Accuracy: <span data-bind="text: HeadingAccuracy"></span></p>
+                    <p>Timestamp: <span data-bind="text: Timestamp"></span></p>
+                    <!-- /ko -->
+                    <!-- ko if:error -->
+                    <p data-bind="text: errorMSG"></p>
+                    <!-- /ko -->
+                    <a href="#" data-rel="back" data-role="button">Close</a>
+                </div>
+            </div>
+            <!--COMPASS MANUAL-->
+            <div id="manual" data-role="popup" data-overlay-theme="a">
+                <div data-role="header">
+                    <p style="text-align: center;">Compass Data</p>
+                </div>
+                <div data-role="container">
+                    <form action="/" method="post">
+                        <label for="select-choice-1" class="select">Select, native menu</label>
+                        <select name="select-choice-1" id="select-choice-1">
+                            <!-- 
+                                North (N): 0° = 360°
+                                Northeast (NE), 45°, halfway between north and east, is the opposite of southwest.
+                                East (E): 90°
+                                Southeast (SE), 135°, halfway between south and east, is the opposite of northwest.
+                                South (S): 180°
+                                Southwest (SW), 225°, halfway between south and west, is the opposite of northeast.
+                                West (W): 270°
+                                Northwest (NW), 315°, halfway between north and west, is the opposite of southeast.
+                            -->
+                            <option value="0">North (N)</option>
+                            <option value="45">Northeast (NE)</option>
+                            <option value="90">East (E)</option>
+                            <option value="135">Southeast (SE)</option>
+                            <option value="180">South (S)</option>
+                            <option value="225">Southwest (SW)</option>
+                            <option value="270">West (W)</option>
+                            <option value="315">Northwest (NW)</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <!--GPS-->
+            <div id="gps" data-role="popup" data-overlay-theme="a" >
+                <div data-role="header">
+                    <p style="text-align: center;">GPS Data</p>
+                </div>
+                <div data-role="container" data-bind="with: gps.mvvm">
+                    
+                    <p>Latitude: <span data-bind="text: Latitude"></span></p>
+                    <p>Longitude: <span data-bind="text: Longitude"></span></p>
+                    <p>Accuracy: <span data-bind="text: Accuracy"></span></p>
+                    <p>Altitude: <span data-bind="text: Altitude"></span></p>
+                    <p>Altitude Accuracy: <span data-bind="text: AltitudeAccuracy"></span></p>
+                    <p>Timestamp: <span data-bind="text: Timestamp"></span></p>
+                    
+                    <!-- ko if:error -->
+                    <p data-bind="text: errorMSG"></p>
+                    <!-- /ko -->
+                    <a href="#" data-rel="back" data-role="button">Close</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--SETUP-->
+    <div id="setup" data-role="page" data-close-btn="none">
+        <div data-role="header">
+            <h1>Setup</h1>
+        </div>
+        <div data-role="content">
+            <form action="/" method="post">
+                <p data-bind="text: CompassMode"></p>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                        <legend>Compass:</legend>
+                        <input type="radio" name="radio-choice-h-1" id="radio-choice-h-1a" value="auto" data-bind="checked: compassMode" checked="checked">
+                        <label for="radio-choice-h-1a">Auto</label>
+                        <input type="radio" name="radio-choice-h-1" id="radio-choice-h-1b" value="manual" data-bind="checked: compassMode">
+                        <label for="radio-choice-h-1b">Manual</label>
+                        <input type="radio" name="radio-choice-h-1" id="radio-choice-h-1c" value="disabled" data-bind="checked: compassMode">
+                        <label for="radio-choice-h-1c">Disabled</label>
+                    </fieldset>
+                    <label for="slider-1">Compass update rate:</label>
+                    <input type="range" name="slider-1" id="slider-1" value="300" min="150" max="2000" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="slider-1">GPS update rate:</label>
+                    <input type="range" name="slider-1" id="Range1" value="300" min="150" max="2000" data-highlight="true">
+                    <label for="slider-1">GPS timeout:</label>
+                    <input type="range" name="slider-1" id="Range2" value="300" min="150" max="2000" data-highlight="true">
+                </div>
+                <a href="#" data-rel="back" data-role="button" data-theme="b">Cancel</a>
+                <a href="#" data-role="button" data-theme="c">Save</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
