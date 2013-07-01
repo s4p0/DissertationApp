@@ -32,7 +32,7 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
     if (event.type == 'pagebeforeshow') {
 
         if (event.target['id'] == 'picture') {
-            pictureViewModel = new pictureModel();
+            //pictureViewModel = new pictureModel();
             $('#image').removeWithDependents();
         }
 
@@ -88,9 +88,9 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
             console.log('binding...');
 
 
-            pictureViewModel = new pictureModel();
+            //pictureViewModel = new pictureModel();
             ko.applyBindings(pictureViewModel, document.getElementById('picture'));
-            ko.applyBindings(mo, document.getElementById('entries'));
+            ko.applyBindings(data, document.getElementById('entries'));
             ko.applyBindings(gpsViewModel, document.getElementById('gps'));
             ko.applyBindings(compassViewModel, document.getElementById('compass'));
             ko.applyBindings(optionsViewModel, document.getElementById('setup'));
@@ -99,18 +99,40 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
     }
 
     if (event.type == 'pagehide') {
-        if (event.target['id'] == 'picture') {
-            
+        if (event.target['id'] == 'result') {
+            data.save();
         }
     }
     if (event.type == 'pageshow') {
         if (event.target['id'] == 'home') {
+            //$('#entries').listview('refresh');
         }
+
+        if (event.target['id'] == 'result') {
+            //var result = new entryModel();
+            var result = new entryModel(compassViewModel, gpsViewModel, pictureViewModel, optionsViewModel);
+            //console.log(JSON.stringify(result));
+            //data.entries().push(result);
+            data.addEntry(result);
+        }
+
     }
-    
+
 });
 
 $(document).bind('deviceready', function () {
+    //window.localStorage.clear();
+
+    var load = window.localStorage.getItem(key);
+    if (load) {
+        //console.log('has entries::' + load.entries);
+        //console.log(load);
+        console.log('load::' + load);
+        var json = JSON.parse(load);
+        console.log('json::' + json);
+        console.log('json[0]::' + JSON.stringify(json.entries[0]));
+        data.load(json);
+    }
 
     //window.localStorage.clear();
 
@@ -151,7 +173,6 @@ var compassModel = function () {
         timestamp: ko.observable(0)
     };
 
-    //self.orientation = ko.observable(0);
 
     self.CompassWrapper.orientation = ko.computed(function () {
         var heading = self.CompassWrapper.trueHeading();
@@ -159,11 +180,6 @@ var compassModel = function () {
         var point = self.compassPoinsts[Math.floor(index)];
 
         return point;
-
-        //console.log(self.trueHeading());
-        //var x = Math.floor((self.trueHeading() + 1) / 45);
-        //console.log(x);
-        //return self.compassPoinsts[x];
     });
 
     self.IsEnabled = ko.computed(function () {
@@ -177,26 +193,6 @@ var compassModel = function () {
             return "disable";
         return "enable";
     });
-
-    ////self.MagneticHeading = ko.computed(function () {
-    ////    var value = self.CompassWrapper.magneticHeading();
-    ////    return value ? value : "unknown";
-    ////});
-
-    ////self.TrueHeading = ko.computed(function () {
-    ////    var value = self.CompassWrapper.trueHeading();
-    ////    return value ? value : "unknown";
-    ////});
-
-    ////self.HeadingAccuracy = ko.computed(function () {
-    ////    var value = self.CompassWrapper.headingAccuracy();
-    ////    return value ? value : "unknown";
-    ////});
-
-    ////self.Timestamp = ko.computed(function () {
-    ////    var value = self.CompassWrapper.timestamp();
-    ////    return value ? value : "unknown";
-    ////});
 
     self.UpdateValues = function (data) {
         self.hasError(false);
@@ -356,18 +352,18 @@ var pictureModel = function () {
     var self = this;
 
     self.PictureWrapper = {
-        uri: ''
+        uri: ko.observable('')
     };
 
     self.Orientation = ko.computed(function () {
-        
+
     });
 
     self.TakePicture = function () {
         navigator.camera.getPicture(
             function (data) {
-                self.PictureWrapper.uri = data;
-                console.log('pic::' + self.PictureWrapper.uri);
+                self.PictureWrapper.uri(data);
+                console.log('pic::' + self.PictureWrapper.uri());
 
                 var elem = $('#image');
                 var width = $(window).width() - 60 + "px";
@@ -380,7 +376,7 @@ var pictureModel = function () {
                     elem.attr('src', data);
                     elem.attr('width', width);
                 }
-                
+
                 console.log(img);
             },
             function (error) {
@@ -409,12 +405,8 @@ $(document).bind('slidestop', function (eventy, ui) {
 });
 
 var mo = new model();
-//mo.init();
 var gpswatch = null;
 var compasswatch = null;
-
-
-
 
 
 ko.bindingHandlers.slider = {
@@ -507,16 +499,7 @@ ko.bindingHandlers.selectmenu = {
 ko.bindingHandlers.selectmenudisable = {
 
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        //var value = valueAccessor();
-        //$(document).bind('change', function (event, ui) {
-        //    if (event.target['id'] == element.id) {
-        //        var val = event.target.value;
-        //        value(val);
-        //    }
-        //});
 
-        // This will be called when the binding is first applied to an element
-        // Set up any initial state, event handlers, etc. here
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = allBindingsAccessor().selectmenudisable();
@@ -525,36 +508,13 @@ ko.bindingHandlers.selectmenudisable = {
         } catch (e) {
 
         }
-
-
-        //var oldValue = $(element).val();
-        //if (value !== oldValue) {
-        //    $(element).val(value);
-        //    try {
-        //        $(element).selectmenu('refresh');
-        //    } catch (e) {
-        //        var x = 0;
-        //    }
-        //}
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
     }
 };
 //selectmenudisable
 ko.bindingHandlers.selectmenuenable = {
 
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        //var value = valueAccessor();
-        //$(document).bind('change', function (event, ui) {
-        //    if (event.target['id'] == element.id) {
-        //        var val = event.target.value;
-        //        value(val);
-        //    }
-        //});
 
-        // This will be called when the binding is first applied to an element
-        // Set up any initial state, event handlers, etc. here
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = allBindingsAccessor().selectmenuenable();
@@ -563,20 +523,6 @@ ko.bindingHandlers.selectmenuenable = {
         } catch (e) {
 
         }
-
-
-        //var oldValue = $(element).val();
-        //if (value !== oldValue) {
-        //    $(element).val(value);
-        //    try {
-        //        $(element).selectmenu('refresh');
-        //    } catch (e) {
-        //        var x = 0;
-        //    }
-        //}
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
     }
 };
 //orientationChanged
@@ -590,13 +536,74 @@ ko.bindingHandlers.orientation = {
         });
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        
+
     }
 };
 
-var pictureViewModel = null;
+var entriesModel = function () {
+    var self = this;
+    self.entries = ko.observableArray([]);
+
+    self.load = function (data) {
+        console.log('entries::' + data.entries.length);
+        self.entries(data.entries);
+        console.log('loaded::' + self.entries().length);
+        $('#entries').listview('refresh');
+    }
+
+    self.addEntry = function (entry) {
+        self.entries.push(entry);
+        $('#entries').listview('refresh');
+    };
+
+    self.save = function () {
+        var toSave = { entries: ko.toJS(self.entries) };
+        window.localStorage.setItem(key, JSON.stringify(toSave));
+    }
+}
+
+var key = 'data';
+var data = new entriesModel();
+var pictureViewModel = new pictureModel();
 var optionsViewModel = new optionsModel();
-//var pictureViewModel = new pictureModel();
 var compassViewModel = new compassModel();
 var gpsViewModel = new GPSModel();
 var orientation = window.orientationchange;
+
+var entryModel = function (compass, gps, picture, options) {
+    var self = this;
+
+    self.compass = ko.toJS(compass.CompassWrapper);
+    self.gps = ko.toJS(gps.GPSWrapper);
+    self.picture = ko.toJS(picture.PictureWrapper.uri());
+    self.options = ko.toJS(options);
+
+    self.device = {
+        version: device.cordova,
+        cordova: device.cordova,
+        platform: device.platform,
+        uuid: device.uuid,
+        model: device.model
+    };
+
+    var now = new Date();
+    self.date = now.getFullYear() + '-' +
+                now.getMonth() + '-' +
+                now.getDay() + ' ' +
+                now.getHours() + ':' +
+                now.getMinutes() + ':' +
+                now.getSeconds();
+
+    self.sync = false;
+
+    //self.icon = function () {
+    //    if (self.sync)
+    //        return 'check';
+    //    return 'delete';
+    //};
+};
+
+
+
+
+

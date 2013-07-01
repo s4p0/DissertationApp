@@ -7,6 +7,7 @@
     <title>Hello World</title>
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+    <script type="text/javascript" src="js/json3.min.js"></script>
     <script src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="js/knockout-2.2.1.debug.js"></script>
     <script src="cordova.js"></script>
@@ -53,12 +54,13 @@
         </div>
         <div data-role="content">
             <a href="#" data-role="button">sync</a>
-            <ul data-role="listview" data-inset="true">
+            <!--<ul data-role="listview" data-inset="true">
                 <li data-icon="check"><a href="#">Entry #1</a></li>
                 <li data-icon="delete"><a href="#">Entry #2</a></li>
-            </ul>
-            <ul id="entries" data-role="listview" data-inset="true" data-bind="foreach: items">
-                <li data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="    text: name"></a></li>
+            </ul>-->
+            <ul id="entries" data-role="listview" data-inset="true" data-bind="foreach: entries">
+                <!--<li data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="text: name"></a></li>-->
+                <li><a href="#" data-bind="    text: date"></a></li>
             </ul>
         </div>
     </div>
