@@ -1,13 +1,13 @@
-﻿<xapCache source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\App29rc1.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="01/07/2013 18:12:50">
+﻿<xapCache source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\App29rc1.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="08/07/2013 02:22:02">
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="25/06/2013 14:21:45" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Background.png" archivePath="Background.png" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="25/06/2013 14:20:20" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\obj\Debug\App29rc1.dll" archivePath="App29rc1.dll" lastWriteTime="01/07/2013 16:59:23" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\obj\Debug\App29rc1.dll" archivePath="App29rc1.dll" lastWriteTime="08/07/2013 02:22:01" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\compassrose.png" archivePath="www\img\compassrose.png" lastWriteTime="27/06/2013 13:43:14" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\compassrose.svg" archivePath="www\img\compassrose.svg" lastWriteTime="27/06/2013 13:36:47" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="01/07/2013 18:08:01" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="01/07/2013 18:08:01" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\app.js" archivePath="www\js\app.js" lastWriteTime="01/07/2013 18:11:14" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="07/07/2013 13:29:35" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="07/07/2013 13:29:35" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\app.js" archivePath="www\js\app.js" lastWriteTime="08/07/2013 01:39:35" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\index.js" archivePath="www\js\index.js" lastWriteTime="12/06/2013 20:36:32" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\index.js" archivePath="www\js\index.js" lastWriteTime="12/06/2013 20:36:32" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\jquery-1.9.1-vsdoc.js" archivePath="www\js\jquery-1.9.1-vsdoc.js" lastWriteTime="30/05/2013 16:07:30" />
@@ -16,7 +16,7 @@
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\jquery-1.9.1.min.js" archivePath="www\js\jquery-1.9.1.min.js" lastWriteTime="28/05/2013 23:23:44" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\jquery.mobile-1.3.1.js" archivePath="www\js\jquery.mobile-1.3.1.js" lastWriteTime="28/05/2013 18:15:28" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\jquery.mobile-1.3.1.min.js" archivePath="www\js\jquery.mobile-1.3.1.min.js" lastWriteTime="28/05/2013 21:01:30" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\json3.min.js" archivePath="www\js\json3.min.js" lastWriteTime="01/07/2013 16:58:10" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\json3.min.js" archivePath="www\js\json3.min.js" lastWriteTime="07/07/2013 13:26:41" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\knockout-2.2.1.debug.js" archivePath="www\js\knockout-2.2.1.debug.js" lastWriteTime="08/06/2013 20:22:09" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\knockout-2.2.1.js" archivePath="www\js\knockout-2.2.1.js" lastWriteTime="08/06/2013 19:07:31" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\cordova.js" archivePath="www\cordova.js" lastWriteTime="25/06/2013 14:20:20" />
@@ -32,6 +32,9 @@
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\css\jquery.mobile.theme-1.3.1.min.css" archivePath="www\css\jquery.mobile.theme-1.3.1.min.css" lastWriteTime="28/05/2013 21:04:56" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\logo.png" archivePath="www\img\logo.png" lastWriteTime="12/06/2013 19:48:56" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\logo.png" archivePath="www\img\logo.png" lastWriteTime="12/06/2013 19:48:56" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\knockout.mapping-latest.debug.js" archivePath="www\js\knockout.mapping-latest.debug.js" lastWriteTime="02/07/2013 00:23:26" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\knockout.mapping.2.4.1.js" archivePath="www\js\knockout.mapping.2.4.1.js" lastWriteTime="01/07/2013 23:46:28" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\thumbs.0.5.2.min.js" archivePath="www\js\thumbs.0.5.2.min.js" lastWriteTime="01/07/2013 22:35:19" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\oldindex.html" archivePath="www\oldindex.html" lastWriteTime="25/06/2013 17:20:54" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\oldapp.js" archivePath="www\js\oldapp.js" lastWriteTime="25/06/2013 17:08:07" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\config.xml" archivePath="config.xml" lastWriteTime="25/06/2013 14:20:20" />
@@ -42,7 +45,7 @@
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Images\appbar.stop.rest.png" archivePath="Images\appbar.stop.rest.png" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\resources\notification-beep.wav" archivePath="resources\notification-beep.wav" lastWriteTime="25/06/2013 14:20:20" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\CordovaSourceDictionary.xml" archivePath="CordovaSourceDictionary.xml" lastWriteTime="01/07/2013 18:12:49" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\CordovaSourceDictionary.xml" archivePath="CordovaSourceDictionary.xml" lastWriteTime="08/07/2013 02:22:00" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="25/06/2013 14:21:45" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="25/06/2013 14:20:20" />

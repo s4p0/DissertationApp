@@ -29,6 +29,9 @@
     <FilePath Value="www\img\logo.png"/>
     <FilePath Value="www\img\logo.png"/>
     <FilePath Value="www\index.html"/>
+    <FilePath Value="www\js\knockout.mapping-latest.debug.js"/>
+    <FilePath Value="www\js\knockout.mapping.2.4.1.js"/>
+    <FilePath Value="www\js\thumbs.0.5.2.min.js"/>
     <FilePath Value="www\oldindex.html"/>
     <FilePath Value="www\js\oldapp.js"/>
     <FilePath Value="www\js\index.js"/>
