@@ -3,6 +3,7 @@
 <CordovaSourceDictionary>
     <FilePath Value="www\img\compassrose.png"/>
     <FilePath Value="www\img\compassrose.svg"/>
+    <FilePath Value="www\img\fw.png"/>
     <FilePath Value="www\index.html"/>
     <FilePath Value="www\js\app.js"/>
     <FilePath Value="www\js\index.js"/>

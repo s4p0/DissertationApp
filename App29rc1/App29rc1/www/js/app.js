@@ -97,12 +97,13 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
 
     if (event.type == 'pagehide') {
         if (event.target['id'] == 'result') {
-            homeViewModel.save();
+            //homeViewModel.save();
         }
     }
     if (event.type == 'pageshow') {
         if (event.target['id'] == 'home') {
 
+           
         }
 
         if (event.target['id'] == 'result') {
@@ -115,21 +116,20 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
 
 $(document).bind('deviceready', function () {
     //window.localStorage.clear();
-    device = {
-        version: device.cordova,
-        cordova: device.cordova,
-        platform: device.platform,
-        uuid: device.uuid,
-        model: device.model
-    };
+    
 
     var load = window.localStorage.getItem(key);
     if (load) {
-        console.log('load::' + load);
+        console.log(load);
         var json = JSON.parse(load);
-        console.log('json::' + json);
+        console.log(json);
         console.log('json[0]::' + JSON.stringify(json.entries[0]));
+
         homeViewModel.load(json);
+
+        //homeViewModel = ko.mapping.fromJS(json, {}, entriesModel);
+        //ko.applyBindings(homeViewModel, document.getElementById('home'));
+        
     }
 });
 
@@ -264,7 +264,7 @@ var GPSModel = function () {
 var optionsModel = function () {
     var self = this;
 
-    self.serverPath = ko.observable('http://192.168.2.120:4000/entries/');
+    self.serverPath = ko.observable('http://192.168.2.120:4000/mobile/upload/');
 
     self.GPSOptions = {
         accuracy: ko.observable("yes"),
@@ -322,6 +322,12 @@ var optionsModel = function () {
         //popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true,
         cameraDirection: 0 // Camera.Direction.BACK;
+    };
+
+    self.clearEntries = function () {
+        localStorage.clear();
+        homeViewModel.entries.removeAll();
+        homeViewModel.persist();
     };
 }
 
@@ -386,6 +392,7 @@ var gpswatch = null;
 var compasswatch = null;
 
 
+
 ko.bindingHandlers.slider = {
 
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -408,6 +415,8 @@ ko.bindingHandlers.slider = {
         // Update the DOM element based on the supplied values here.
     }
 };
+
+
 
 ko.bindingHandlers.flipswitch = {
 
@@ -523,8 +532,22 @@ var entriesModel = function () {
     self.selected = ko.observable({});
 
     self.load = function (data) {
-        //console.log('entries::' + data.entries.length);
-        self.entries(data.entries);
+        //ko.mapping.fromJS(data, {}, self);
+        console.log('entries::' + data.entries.length);
+        //self.entries(data.entries);
+
+        for (var i = 0; i < data.entries.length; i++) {
+
+            console.log('start');
+            console.log('');
+            console.log( JSON.stringify( data.entries[i] ));
+            console.log('end');
+            //var entry = ko.mapping.fromJS(data.entries[i], {'copy':['picture'], 'ignore': ['compass', 'gps','options']}, entryModel);
+            entry = new entryModel();
+            entry.load(data.entries[i]);
+            self.entries.push( entry );
+        }
+
         //console.log('loaded::' + self.entries().length);
         $('#entries').listview('refresh');
     }
@@ -536,15 +559,20 @@ var entriesModel = function () {
 
     self.removeEntry = function (entry) {
         console.log('before::' + self.entries().length);
-        self.entries.remove(entry);
+        self.entries.remove(entry.selected());
         console.log('after::' + self.entries().length);
         $('#entries').listview('refresh');
+        $('.ui-dialog').dialog('close');
     };
 
     self.save = function () {
         console.log('saved');
-        var result = new entryModel(compassViewModel, gpsViewModel, pictureViewModel, optionsViewModel);
-        self.addEntry(result);
+        //var result = new entryModel(compassViewModel, gpsViewModel, pictureViewModel, optionsViewModel);
+
+        var result = new entryModel();
+        result.store(compassViewModel, gpsViewModel, pictureViewModel, optionsViewModel);
+
+        self.addEntry( ko.toJS( result ));
         self.persist();
     };
 
@@ -558,20 +586,20 @@ var entriesModel = function () {
         console.log('::');
         console.log('::' + JSON.stringify(entry));
 
-        if (!entry.remove) {
-            entry.remove = function (entry) {
-                self.removeEntry(entry);
-                console.log('removed');
-                self.persist();
-                $.mobile.changePage('#home');
-            }
-        }
+        //if (!entry.remove) {
+        //    entry.remove = function (entry) {
+        //        self.removeEntry(entry);
+        //        console.log('removed');
+        //        self.persist();
+        //        $.mobile.changePage('#home');
+        //    }
+        //}
         self.selected(entry);
-        ko.applyBindings(self.selected, document.getElementById('detail'));
+        ko.applyBindings(self, document.getElementById('detail'));
         $.mobile.changePage('#detail', { role: 'dialog' });
     }
 
-    self.upload = function () {
+    self.uploadOld = function () {
         console.log('upload...');
         var arr = self.entries();
 
@@ -579,10 +607,11 @@ var entriesModel = function () {
             console.log('entry');
             var entry = ko.toJS(arr[i]);
             console.log(entry.picture);
-        
+
             $('#image').removeWithDependents();
 
             var filePath = entry.picture;
+            
             console.log('file::' + filePath);
             var serverPath = optionsViewModel.serverPath();
 
@@ -595,16 +624,147 @@ var entriesModel = function () {
             par.entry = JSON.stringify(entry);
 
             opt.params = par;
-            
+
             var ft = new FileTransfer();
             ft.chunckedMode = true;
 
-            ft.onprogress = function(progressEvent){
+            ft.onprogress = function (progressEvent) {
                 console.log('onprogress');
 
             };
             ft.upload(filePath, encodeURI(serverPath), self.successUpload, self.failureUpload, opt);
+        }
+    }
 
+    self.upload = function (currentValue) {
+
+        
+
+        console.log('type :: ' + typeof (currentValue));
+
+        var pos = 0;
+
+        if (typeof (currentValue) == 'number') {
+            console.log('current ' + currentValue);
+            pos = currentValue;
+            pos++;
+            console.log('pos alt :: ' + pos);
+        }
+
+        $('#message').popup('option', 'dismissible', false);
+        $('#message h3').text('transferring... # ' + pos);
+        $('#message').popup('option', 'positionTo', 'window');
+        $('#message').popup('open');
+
+        console.log('to upload : ' + pos);
+        self.uploadEntry(pos);
+
+    }
+
+    self.finishUpload = function () {
+        $('#entries').listview('refresh');
+        
+        $('#message').popup('option', 'dismissible', true);
+        $('#message h3').text('completed!');
+        $('#message').popup('option', 'positionTo', 'window');
+        //$('#message').popup('close')
+
+        console.log('finished');
+    }
+
+    self.errorUpload = function (pos) {
+        console.log('error upload:: ' + pos);
+
+        $('#message').popup('option', 'dismissible', true);
+        $('#message h3').text('Error on # ' + pos);
+        $('#message').popup('option', 'positionTo', 'window');
+        //$('#message').popup('close')
+        
+    }
+
+    self.uploadEntry = function (pos) {
+
+        var position = pos;
+        var current_entries = self.entries();
+
+        var len = current_entries.length;
+        console.log('len::' + len);
+
+
+        if (position < len) {
+            console.log('to upload more');
+
+            // to upload more
+
+            var koEntry = current_entries[pos];
+            var entry = ko.toJS(koEntry);
+            
+            console.log('');
+            console.log('json::' + JSON.stringify(entry));
+            console.log('');
+            //entry = JSON.parse(entry);
+
+            console.log('entry  set');
+
+            var filePath = entry.picture;
+            console.log('file::' + filePath);
+            var serverPath = optionsViewModel.serverPath();
+
+            var opt = new FileUploadOptions();
+            opt.fileKey = 'file';
+            opt.fileName = device.uuid + '_' + filePath.substr(filePath.lastIndexOf('/') + 1);
+            opt.mimeType = 'image/jpeg';
+
+            device = {
+                version: device.cordova,
+                cordova: device.cordova,
+                platform: device.platform,
+                uuid: device.uuid,
+                model: device.model
+            };
+
+            var json_entry = JSON.stringify(entry);
+            var json_device = JSON.stringify(device);
+
+            console.log(json_device);
+            //opt.params = { entry: json_entry, 'device': json_device };
+            opt.params = new Object();
+            opt.params.entry = escape(json_entry);
+            opt.params.device = escape(json_device);
+
+            //opt.params = { entry: ko.toJSON(entry) };
+
+            var ft = new FileTransfer();
+            ft.upload(
+                filePath,
+                encodeURI(serverPath),
+                //self.successUpload, // added
+                //self.failureUpload, // added
+
+                function (data) {
+                    if (data.response.result !== 'sucess') {
+                        console.log('up suc of ' + position);
+                        console.log('code::' + data.responseCode);
+                        console.log('bytes::' + data.bytesSent);
+                        console.log('response::' + data.response);
+                        koEntry.sync(true);
+
+                        self.upload(position);
+                    } else {
+                        self.errorUpload(position);
+                    }
+                },
+
+                function (err) {
+                    console.log('err' + JSON.stringify(err));
+                    self.errorUpload(position);
+                },
+                opt);
+
+
+        } else {
+            // finish
+            self.finishUpload();
         }
     }
 
@@ -629,16 +789,36 @@ var gpsViewModel = new GPSModel();
 var orientation = window.orientationchange;
 var device = null;
 
-var entryModel = function (compass, gps, picture, options) {
+var entryModel = function () {
     var self = this;
+    self.compass = ko.observable();
+    self.picture = ko.observable();
+    self.gps = ko.observable();
+    self.options = ko.observable();
 
-    self.compass = ko.toJS(compass.CompassWrapper);
-    self.gps = ko.toJS(gps.GPSWrapper);
-    self.picture = ko.toJS(picture.PictureWrapper.uri());
-    self.options = ko.toJS(options);
+    self.store = function (compass, gps, picture, options) {
+        self.compass(ko.toJS(compass.CompassWrapper));
+        self.gps(ko.toJS(gps.GPSWrapper))
+        self.picture(ko.toJS(picture.PictureWrapper.uri()));
+        self.options(ko.toJS(options));
+    };
+
+
+    self.load = function (data) {
+        self.compass = data.compass;
+        self.picture = data.picture;
+        self.options = data.options;
+        self.gps = data.gps;
+
+        self.sync(data.sync);
+
+        self.date = data.date;
+    }
+
     self.sync = ko.observable(false);
 
     var now = new Date();
+
     self.date = now.getFullYear() + '-' +
                 now.getMonth() + '-' +
                 now.getDay() + ' ' +
@@ -646,10 +826,32 @@ var entryModel = function (compass, gps, picture, options) {
                 now.getMinutes() + ':' +
                 now.getSeconds();
 
-
+    self.status = ko.computed(function () {
+        var value = self.sync();
+        if (value)
+            return 'check';
+        return 'delete';
+    });
 };
 
 
+ko.bindingHandlers.listupdate = {
 
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        //var value = valueAccessor();
+        //$(window).bind('orientationchange', function (event, ui) {
+        //    console.log('orientation changed');
+        //    value();
+        //});
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        try {
+            $(element).parents('ul').listview('refresh');
+            $(element).parents('li').buttonMarkup({ icon: valueAccessor() });
+        } catch (e) {
+
+        }
+    }
+};
 
 

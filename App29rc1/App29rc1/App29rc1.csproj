@@ -121,6 +121,7 @@
   <ItemGroup>
     <Content Include="www\img\compassrose.png" />
     <Content Include="www\img\compassrose.svg" />
+    <Content Include="www\img\fw.png" />
     <Content Include="www\index.html" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\index.js" />
