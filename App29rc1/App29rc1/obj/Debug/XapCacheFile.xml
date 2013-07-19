@@ -1,4 +1,4 @@
-﻿<xapCache source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\App29rc1.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="17/07/2013 00:42:57">
+﻿<xapCache source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\App29rc1.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="17/07/2013 09:21:21">
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="25/06/2013 14:21:45" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Background.png" archivePath="Background.png" lastWriteTime="16/07/2013 23:39:51" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="16/07/2013 23:22:31" />
@@ -6,8 +6,8 @@
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\compassrose.png" archivePath="www\img\compassrose.png" lastWriteTime="27/06/2013 13:43:14" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\compassrose.svg" archivePath="www\img\compassrose.svg" lastWriteTime="27/06/2013 13:36:47" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\img\fw.png" archivePath="www\img\fw.png" lastWriteTime="16/07/2013 23:34:04" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="17/07/2013 00:42:48" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="17/07/2013 00:42:48" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="17/07/2013 09:21:19" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\index.html" archivePath="www\index.html" lastWriteTime="17/07/2013 09:21:19" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\app.js" archivePath="www\js\app.js" lastWriteTime="17/07/2013 00:34:27" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\index.js" archivePath="www\js\index.js" lastWriteTime="12/06/2013 20:36:32" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\www\js\index.js" archivePath="www\js\index.js" lastWriteTime="12/06/2013 20:36:32" />
@@ -46,7 +46,7 @@
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Images\appbar.stop.rest.png" archivePath="Images\appbar.stop.rest.png" lastWriteTime="25/06/2013 14:20:20" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\resources\notification-beep.wav" archivePath="resources\notification-beep.wav" lastWriteTime="25/06/2013 14:20:20" />
-  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\CordovaSourceDictionary.xml" archivePath="CordovaSourceDictionary.xml" lastWriteTime="17/07/2013 00:42:57" />
+  <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\CordovaSourceDictionary.xml" archivePath="CordovaSourceDictionary.xml" lastWriteTime="17/07/2013 09:21:21" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="16/07/2013 23:34:47" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="25/06/2013 14:21:45" />
   <file source="C:\Users\Felipe Cprrea\Documents\GitHub\fwapp\App29rc1\App29rc1\Bin\Debug\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="16/07/2013 23:22:31" />

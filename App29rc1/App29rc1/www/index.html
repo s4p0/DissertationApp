@@ -79,8 +79,8 @@
             <ul id="entries" data-role="listview" data-inset="true" data-bind="foreach: entries">
                 <!--<li data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="text: name"></a></li>-->
                 <!-- data-bind="attr: { 'data-icon': status() }" -->
-                <!--<li data-theme="c" data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="    text: date, click: $parent.detail, listupdate: status, clickBubble: false"></a></li>-->
-                <li data-theme="c" data-bind="attr: { 'data-icon': status() }"><a href="#" data-bind="    click: $parent.detail, listupdate: status(), clickBubble: false">Entry #<span data-bind="    text: $index"></span></a></li>
+                <li data-theme="c" data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="click: $parent.detail, listupdate: status, clickBubble: false">Entry #<span data-bind="text: $index"></span></a></li>
+                <!-- li data-theme="c"><a href="#" data-bind="    click: $parent.detail, listupdate: status(), clickBubble: false">Entry #<span data-bind="    text: $index"></span></a></!-->
             </ul>
 
             <div id="message" data-role="popup" class="ui-content" data-overlay-theme="a" >
