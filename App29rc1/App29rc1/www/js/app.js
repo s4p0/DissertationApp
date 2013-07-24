@@ -40,6 +40,7 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
         if (event.target['id'] == 'gps') {
             console.log('gps-options::' + ko.toJSON(optionsViewModel.GPSOptions));
 
+            if (navigator.geolocation === 'undefined')
             gpswatch = navigator.geolocation.watchPosition(
                 function (data) {
                     gpsViewModel.UpdateValues(data);
@@ -53,15 +54,16 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
 
         if (event.target['id'] == 'compass') {
 
-            compasswatch = navigator.compass.watchHeading(
-                function (data) {
-                    compassViewModel.UpdateValues(data);
-                    console.log('compass received');
-                },
-                function (error) {
-                    compassViewModel.SetErrorMessage(error);
-                    console.log('compass error');
-                }, ko.toJS(optionsViewModel.CompassOptions));
+            if (navigator.compass === 'undefined')
+                compasswatch = navigator.compass.watchHeading(
+                    function (data) {
+                        compassViewModel.UpdateValues(data);
+                        console.log('compass received');
+                    },
+                    function (error) {
+                        compassViewModel.SetErrorMessage(error);
+                        console.log('compass error');
+                    }, ko.toJS(optionsViewModel.CompassOptions));
 
             console.log('compass-options::' + ko.toJSON(optionsViewModel.CompassOptions));
         }
@@ -103,7 +105,7 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
     if (event.type == 'pageshow') {
         if (event.target['id'] == 'home') {
 
-           
+
         }
 
         if (event.target['id'] == 'result') {
@@ -116,7 +118,7 @@ $(document).bind('pagebeforeshow pagebeforehide pageinit pagebeforecreate pagesh
 
 $(document).bind('deviceready', function () {
     //window.localStorage.clear();
-    
+
 
     var load = window.localStorage.getItem(key);
     if (load) {
@@ -129,7 +131,7 @@ $(document).bind('deviceready', function () {
 
         //homeViewModel = ko.mapping.fromJS(json, {}, entriesModel);
         //ko.applyBindings(homeViewModel, document.getElementById('home'));
-        
+
     }
 });
 
@@ -540,12 +542,12 @@ var entriesModel = function () {
 
             console.log('start');
             console.log('');
-            console.log( JSON.stringify( data.entries[i] ));
+            console.log(JSON.stringify(data.entries[i]));
             console.log('end');
             //var entry = ko.mapping.fromJS(data.entries[i], {'copy':['picture'], 'ignore': ['compass', 'gps','options']}, entryModel);
             entry = new entryModel();
             entry.load(data.entries[i]);
-            self.entries.push( entry );
+            self.entries.push(entry);
         }
 
         //console.log('loaded::' + self.entries().length);
@@ -572,7 +574,7 @@ var entriesModel = function () {
         var result = new entryModel();
         result.store(compassViewModel, gpsViewModel, pictureViewModel, optionsViewModel);
 
-        self.addEntry( ko.toJS( result ));
+        self.addEntry(ko.toJS(result));
         self.persist();
     };
 
@@ -611,7 +613,7 @@ var entriesModel = function () {
             $('#image').removeWithDependents();
 
             var filePath = entry.picture;
-            
+
             console.log('file::' + filePath);
             var serverPath = optionsViewModel.serverPath();
 
@@ -638,7 +640,7 @@ var entriesModel = function () {
 
     self.upload = function (currentValue) {
 
-        
+
 
         console.log('type :: ' + typeof (currentValue));
 
@@ -663,7 +665,7 @@ var entriesModel = function () {
 
     self.finishUpload = function () {
         $('#entries').listview('refresh');
-        
+
         $('#message').popup('option', 'dismissible', true);
         $('#message h3').text('completed!');
         $('#message').popup('option', 'positionTo', 'window');
@@ -679,7 +681,7 @@ var entriesModel = function () {
         $('#message h3').text('Error on # ' + pos);
         $('#message').popup('option', 'positionTo', 'window');
         //$('#message').popup('close')
-        
+
     }
 
     self.uploadEntry = function (pos) {
@@ -698,7 +700,7 @@ var entriesModel = function () {
 
             var koEntry = current_entries[pos];
             var entry = ko.toJS(koEntry);
-            
+
             console.log('');
             console.log('json::' + JSON.stringify(entry));
             console.log('');
@@ -847,7 +849,7 @@ ko.bindingHandlers.listupdate = {
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         try {
             $(element).parents('ul').listview('refresh');
-            $(element).parents('li').buttonMarkup({ icon: valueAccessor() });
+            //$(element).parents('li').buttonMarkup({ icon: valueAccessor() });
         } catch (e) {
 
         }

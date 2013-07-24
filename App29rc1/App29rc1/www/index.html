@@ -35,11 +35,13 @@
         $(document).bind('mobileinit', function () {
             console.log('mobileinit');
 
-            window.onerror = function (errmsg, filename, ln) {
-                window.external.notify("jserror : " + errmsg +
-                        ", in file : " + filename +
-                        ", at line number:" + ln);
-            }
+            if (window.onerror !== 'undefined')
+                window.onerror = function (errmsg, filename, ln) {
+                    if (window.external !== 'undefined')
+                        window.external.notify("jserror : " + errmsg +
+                                ", in file : " + filename +
+                                ", at line number:" + ln);
+                }
 
             $.mobile.buttonMarkup.hoverDelay = 0;
             //$.mobile.transitionFallbacks.slideout = "none";
@@ -65,7 +67,7 @@
             <div data-role="navbar" data-iconpos="left">
                 <ul>
                     <li><a href="#home" class="ui-btn-active ui-state-persist" data-icon="home">Home</a></li>
-                    <li><a href="#picture" data-rel="dialog" data-icon="add">Camera</a></li>
+                    <li><a href="#picture" data-rel="dialog" data-icon="add">Capture</a></li>
                     <li><a href="#setup" data-icon="gear">Setup</a></li>
                 </ul>
             </div>
@@ -77,13 +79,12 @@
                 <li data-icon="delete"><a href="#">Entry #2</a></li>
             </ul>-->
             <ul id="entries" data-role="listview" data-inset="true" data-bind="foreach: entries">
-                <!--<li data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="text: name"></a></li>-->
-                <!-- data-bind="attr: { 'data-icon': status() }" -->
-                <li data-theme="c" data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="click: $parent.detail, listupdate: status, clickBubble: false">Entry #<span data-bind="text: $index"></span></a></li>
-                <!-- li data-theme="c"><a href="#" data-bind="    click: $parent.detail, listupdate: status(), clickBubble: false">Entry #<span data-bind="    text: $index"></span></a></!-->
+                <!--<li data-theme="c" daaata-bind="attr: { 'data-icon': status }"><a href="#" daaaata-bind="click: $parent.detail, listupdate: status, clickBubble: false">Entry #<span data-bind="text: $index"></span></a></li>-->
+                <li data-theme="c" data-bind="attr: { 'data-icon': status }"><a href="#" data-bind="click: $parent.detail, listupdate: status, clickBubble: false">Entry #<span data-bind="    text: $index"></span></a></li>
+
             </ul>
 
-            <div id="message" data-role="popup" class="ui-content" data-overlay-theme="a" >
+            <div id="message" data-role="popup" class="ui-content" data-overlay-theme="a">
                 <h3>transferring...</h3>
             </div>
 
@@ -97,7 +98,7 @@
         <div data-role="content">
             <div data-role="collapsible" data-mini="true">
                 <h4>Picture</h4>
-                <img src="#" alt="entry" />
+                <!--<img src="#" alt="entry" />-->
             </div>
             <div data-role="collapsible" data-mini="true" data-bind="with: selected">
                 <h4>GPS</h4>
@@ -136,6 +137,7 @@
         <div data-role="content">
             <a href="#" id='picture-takepicture' data-bind="orientation: UpdateWidth, click: TakePicture" data-role="button">Take a Picture</a>
             <a href="#" data-role="button" class="ui-disabled">Make a Video</a>
+            <a href="#" data-role="button" class="ui-disabled">Capture Audio</a>
         </div>
         <div data-role="footer">
             <fieldset class="ui-grid-a">
@@ -246,7 +248,7 @@
             <div data-role="navbar" data-iconpos="left">
                 <ul>
                     <li><a href="#home" data-icon="home">Home</a></li>
-                    <li><a href="#picture" data-rel="dialog" data-icon="add">Camera</a></li>
+                    <li><a href="#picture" data-rel="dialog" data-icon="add">Capture</a></li>
                     <li><a href="#setup" class="ui-btn-active ui-state-persist" data-icon="gear">Setup</a></li>
                 </ul>
             </div>
